@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import auth from "../firebase/firebase.init";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   // States
@@ -42,14 +43,32 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // Observer- Auth State Change
+  //!! Observer- Auth State Change and JWT
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+
+      if (currentUser) {
+        const user = { email: currentUser.email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log("JWT response:", res.data);
+            setLoading(false);
+          })
+          .catch((err) => console.error("Error fetching JWT:", err));
+      } else {
+        axios
+          .post("http://localhost:5000/logout", {}, { withCredentials: true })
+          .then((res) => {
+            console.log("JWT response:", res.data);
+            setLoading(false);
+          })
+          .catch((err) => console.error("Error fetching JWT:", err));
+      }
     });
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   const authInfo = {
     user,

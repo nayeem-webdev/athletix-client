@@ -11,6 +11,7 @@ import ProductForm from "../pages/ProductForm";
 import ProductPage from "../pages/ProductPage";
 import Store from "../components/Store";
 import PrivateRoutes from "./PrivateRoutes";
+import API from "../api/API";
 
 const routes = createBrowserRouter([
   {
@@ -33,10 +34,16 @@ const routes = createBrowserRouter([
           {
             path: "/shop/:id",
             element: <Store />,
-            loader: ({ params }) =>
-              fetch(
-                `https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-products/category/${params.id}`
-              ),
+            loader: async ({ params }) => {
+              try {
+                const res = await API.get(
+                  `/all-products/category/${params.id}`
+                );
+                return res.data;
+              } catch (err) {
+                console.error("Error fetching all products:", err);
+              }
+            },
           },
         ],
       },
