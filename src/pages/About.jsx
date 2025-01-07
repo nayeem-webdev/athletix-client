@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const About = () => {
   return (
     <>
-     <Helmet>
+      <Helmet>
         <title>ATHLETIX | About</title>
       </Helmet>
       <div

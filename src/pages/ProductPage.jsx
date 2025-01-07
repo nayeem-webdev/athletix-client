@@ -8,7 +8,7 @@ const ProductPage = () => {
   return (
     <div className="container mx-auto py-[140px] p-8 flex flex-col lg:flex-row gap-8">
       <Helmet>
-        <title>ATHLETIX | {product.product_title}</title>
+        <title>ATHLETIX | {product?.product_title || "Product"}</title>
       </Helmet>
       <div className="aspect-square w-full lg:w-1/2 self-start bg-white">
         <img

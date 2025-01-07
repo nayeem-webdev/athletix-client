@@ -5,10 +5,8 @@ const ErrorPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white text-center px-6 py-12">
       <Helmet>
-        <meta charSet="utf-8" />
-        <title>ATHLETIX | Error Page</title>
-        <link rel="canonical" href="http://mysite.com/example" />
-      </Helmet>{" "}
+        <title>ATHLETIX | Fetch Failed</title>
+      </Helmet>
       <div className="max-w-lg w-full">
         <h1 className="text-6xl font-bold text-black font-quick">404</h1>
         <p className="mt-4 text-2xl text-black">

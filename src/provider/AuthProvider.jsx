@@ -10,65 +10,74 @@ import {
 import PropTypes from "prop-types";
 import auth from "../firebase/firebase.init";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const AuthProvider = ({ children }) => {
-  // States
+  //## States
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Create User
+  //## Create User
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Create User
+  //## Create User
   const updateUser = (displayName, photoURL) => {
     const profileData = { displayName, photoURL };
     return updateProfile(auth.currentUser, profileData);
   };
 
-  // Login with Password
+  //## Login with Password
   const loginWithPassword = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Login with Pop Up
+  //## Login with Pop Up
   const loginWithPopUp = (provider) => {
     return signInWithPopup(auth, provider);
   };
 
-  // Logout
+  //## Logout
   const logoutUser = () => {
     return signOut(auth);
   };
 
-  //!! Observer- Auth State Change and JWT
+  //## Observer- Auth State Change
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
-      if (currentUser) {
-        const user = { email: currentUser.email };
-        axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((res) => {
-            console.log("JWT response:", res.data);
-            setLoading(false);
-          })
-          .catch((err) => console.error("Error fetching JWT:", err));
-      } else {
-        axios
-          .post("http://localhost:5000/logout", {}, { withCredentials: true })
-          .then((res) => {
-            console.log("JWT response:", res.data);
-            setLoading(false);
-          })
-          .catch((err) => console.error("Error fetching JWT:", err));
-      }
+      setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user]);
+
+  //!! Observer- Auth State Change and JWT
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+
+  //     if (currentUser) {
+  //       const user = { email: currentUser.email };
+  //       axios
+  //         .post("http://localhost:5000/jwt", user, { withCredentials: true })
+  //         .then((res) => {
+  //           console.log("JWT response:", res.data);
+  //           setLoading(false);
+  //         })
+  //         .catch((err) => console.error("Error fetching JWT:", err));
+  //     } else {
+  //       axios
+  //         .post("http://localhost:5000/logout", {}, { withCredentials: true })
+  //         .then((res) => {
+  //           console.log("JWT response:", res.data);
+  //           setLoading(false);
+  //         })
+  //         .catch((err) => console.error("Error fetching JWT:", err));
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
 
   const authInfo = {
     user,

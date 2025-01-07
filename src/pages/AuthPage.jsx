@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import LottiePlayer from "../components/LottiePlayer";
 import { Helmet } from "react-helmet";
+import API from "../api/API";
 
 const AuthPage = () => {
   const {
@@ -68,10 +69,25 @@ const AuthPage = () => {
 
     if (isLong && hasSymbol && hasLowercase && hasUppercase) {
       createUser(emailRegister, passwordRegister)
-        .then(() => {
+        .then((res) => {
+          const user = res.user;
           updateUser(fullName, photoUrl).then(() => {
             toast.success("User Register Successful!");
-            navigate("/account");
+            const newUser = {
+              email: user.email,
+              displayName: user.displayName,
+              photoUrl: user.photoUrl,
+              uid: user.uid,
+              userRole: "customer",
+            };
+            API.post("/users", newUser)
+              .then(() => {
+                navigate("/account");
+              })
+              .catch((err) => {
+                console.error("Error Creating Item:", err.message);
+                toast.error("Failed to Add User!");
+              });
           });
         })
         .catch((err) => {
@@ -99,6 +115,7 @@ const AuthPage = () => {
         toast.error("User Login Failed!");
       });
   };
+
   // Google Login
   const googleProvider = new GoogleAuthProvider();
   const handleGoogleLogin = () => {

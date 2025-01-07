@@ -1,5 +1,6 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const AllSportsEquipment = () => {
   const allData = useLoaderData();
@@ -17,6 +18,9 @@ const AllSportsEquipment = () => {
 
   return (
     <div className="container mx-auto py-[100px] px-8">
+      <Helmet>
+        <title>ATHLETIX | All Equipment</title>
+      </Helmet>
       <h2 className="text-2xl font-bold text-black dark:text-white mb-6">
         All Sports Equipment
       </h2>
