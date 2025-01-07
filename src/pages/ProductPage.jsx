@@ -1,4 +1,5 @@
 import { Rate } from "antd";
+import { Helmet } from "react-helmet";
 import { Link, useLoaderData } from "react-router-dom";
 
 const ProductPage = () => {
@@ -6,6 +7,9 @@ const ProductPage = () => {
 
   return (
     <div className="container mx-auto py-[140px] p-8 flex flex-col lg:flex-row gap-8">
+      <Helmet>
+        <title>ATHLETIX | {product.product_title}</title>
+      </Helmet>
       <div className="aspect-square w-full lg:w-1/2 self-start bg-white">
         <img
           src={product.product_image}
@@ -70,9 +74,9 @@ const ProductPage = () => {
             <li className="list-disc ml-6">No specifications available</li>
           )}
         </ul>
-        <button className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
+        {/* <button className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
           ADD TO CART
-        </button>
+        </button> */}
       </div>
     </div>
   );

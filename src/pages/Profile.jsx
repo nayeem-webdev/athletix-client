@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ProductProfileCard from "../components/ProductProfileCard";
 import LottiePlayer from "../components/LottiePlayer";
 import ProductSideBar from "../components/ProductSideBar";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -34,6 +35,9 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto min-h-screen py-[72px] lg:flex mt-5 gap-6 px-6">
+      <Helmet>
+        <title>ATHLETIX | {user.displayName}</title>
+      </Helmet>
       <div className="lg:w-2/3">
         {/* Profile Section */}
         <div className="rounded-lg bg-gray-50 dark:bg-white/20 p-6">

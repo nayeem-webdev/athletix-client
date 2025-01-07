@@ -4,6 +4,7 @@ import { Tooltip } from "react-tooltip";
 import AuthContext from "../context/AuthContext";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const ProductForm = () => {
   const { user } = useContext(AuthContext);
@@ -120,6 +121,9 @@ const ProductForm = () => {
 
   return (
     <div className="container mx-auto min-h-screen py-[80px] px-6">
+      <Helmet>
+        <title>ATHLETIX | Add or Update Product</title>
+      </Helmet>
       <Tooltip anchorSelect="#product_image" clickable>
         <button>
           upload your image on{" "}

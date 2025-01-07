@@ -6,6 +6,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import LottiePlayer from "../components/LottiePlayer";
+import { Helmet } from "react-helmet";
 
 const AuthPage = () => {
   const {
@@ -124,6 +125,9 @@ const AuthPage = () => {
   } else {
     return (
       <div className="min-h-screen flex  items-center justify-center px-4 transition py-[72px]">
+        <Helmet>
+          <title>ATHLETIX | Login or Register</title>
+        </Helmet>
         <Tooltip anchorSelect="#photoUrl" clickable>
           <button>
             upload your image on{" "}

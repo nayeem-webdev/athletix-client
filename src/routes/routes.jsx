@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import AuthPage from "../pages/AuthPage";
@@ -9,9 +9,11 @@ import Shop from "../pages/Shop";
 import AllSportsEquipment from "../pages/AllSportsEquipment";
 import ProductForm from "../pages/ProductForm";
 import ProductPage from "../pages/ProductPage";
-import Store from "../components/Store";
+// import Store from "../components/Store";
 import PrivateRoutes from "./PrivateRoutes";
-import API from "../api/API";
+// import API from "../api/API";
+import About from "../pages/About";
+import ContactUs from "../pages/ContactUs";
 
 const routes = createBrowserRouter([
   {
@@ -24,36 +26,40 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/shop",
-        element: <Shop />,
-        children: [
-          {
-            index: true,
-            element: <Navigate to={"all-equipment"} />,
-          },
-          {
-            path: "/shop/:id",
-            element: <Store />,
-            loader: async ({ params }) => {
-              try {
-                const res = await API.get(
-                  `/all-products/category/${params.id}`
-                );
-                return res.data;
-              } catch (err) {
-                console.error("Error fetching all products:", err);
-              }
-            },
-          },
-        ],
+        path: "/about",
+        element: <About />,
       },
       {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
+      // children: [
+      //   {
+      //     index: true,
+      //     element: <Navigate to={"all-equipment"} />,
+      //   },
+      //   {
+      //     path: "/shop/:id",
+      //     element: <Store />,
+      //     loader: async ({ params }) => {
+      //       try {
+      //         const res = await API.get(
+      //           `/all-products/category/${params.id}`
+      //         );
+      //         return res.data;
+      //       } catch (err) {
+      //         console.error("Error fetching all products:", err);
+      //       }
+      //     },
+      //   },
+      // ],
+      {
         path: "/shop/product/:id",
-        element: (
-          <PrivateRoutes>
-            <ProductPage />
-          </PrivateRoutes>
-        ),
+        element: <ProductPage />,
         loader: ({ params }) =>
           fetch(
             `https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-products/${params.id}`

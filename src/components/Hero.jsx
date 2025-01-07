@@ -53,10 +53,10 @@ const Hero = () => {
             Strength doesn’t come from winning, <br /> it comes from struggle.
           </h1>
           <Link
-            to="/all-sports-equipment"
-            className="font-bold self-center md:self-start mt-4 md:mt-6 bg-white border border-black rounded-xl px-8 py-4 md:px-6 md:py-3 text-sm md:text-lg hover:bg-primary hover:text-white transition"
+            to="/shop"
+            className="font-bold self-center md:self-start mt-4 md:mt-6 bg-white border border-black rounded-xl px-8 py-4 md:px-6 md:py-3 text-sm md:text-lg hover:bg-black hover:text-white transition"
           >
-            ALL SPORTS EQUIPMENT
+            SHOP NOW
           </Link>
           <div className="border-b-[6px] border-primary w-full md:w-2/3 mx-auto md:mx-0 mt-3" />
         </div>

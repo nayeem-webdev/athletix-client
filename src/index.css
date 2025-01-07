@@ -19,3 +19,34 @@ h6 {
 .logo-shadow {
   text-shadow: 1.2px 1.2px 0px #ff9d45;
 }
+
+/* Range Styling */
+.range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #ff9d45;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Thumb Styles */
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff9d45;
+  border: 2px, solid, white;
+  cursor: pointer;
+}
+
+.range-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff9d45;
+  border: 2px, solid, white;
+  cursor: pointer;
+}

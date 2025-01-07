@@ -13,8 +13,8 @@ const HomeProducts = () => {
         <p className="mb-6 text-center text-black/80 dark:text-white/80">
           Check our Latest Stock
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {products.slice(0, 6).map((product) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.slice(0, 10).map((product) => (
             <ProductStoreCard key={product.id} product={product} />
           ))}
         </div>

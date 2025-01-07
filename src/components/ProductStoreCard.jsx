@@ -22,9 +22,9 @@ const ProductStoreCard = ({ product }) => {
           {product.category.toUpperCase().replace("-", " ")}
         </p>
 
-        <button className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
+        {/* <button className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
           ADD TO CART - ${product.price}
-        </button>
+        </button> */}
         <Link
           to={`/shop/product/${product._id}`}
           className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
