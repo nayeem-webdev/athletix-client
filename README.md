@@ -49,16 +49,6 @@ ATHLETIX provides a platform for users to buy and sell sports equipment with eas
 
 ---
 
-## ES6 Features Used
-
-- **Arrow Functions**: For cleaner and more concise syntax.
-- **Modules**: Efficient structuring of reusable code.
-- **Promises and Async/Await**: Streamlined handling of asynchronous operations with MongoDB and Firebase.
-- **Template Literals**: Enhanced string manipulation for dynamic content rendering.
-- **Destructuring**: Simplified access to object properties for better readability.
-
----
-
 ## Technologies Used
 
 - **Frontend**: React.js, Ant Design, Tailwind CSS, Swiper, React Router DOM
