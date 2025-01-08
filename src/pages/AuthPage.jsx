@@ -72,16 +72,19 @@ const AuthPage = () => {
         .then((res) => {
           const user = res.user;
           updateUser(fullName, photoUrl).then(() => {
-            toast.success("User Register Successful!");
             const newUser = {
               email: user.email,
               displayName: user.displayName,
               photoUrl: user.photoUrl,
               uid: user.uid,
               userRole: "customer",
+              requestForSeller: "N/A",
+              customer: true,
+              isSeller: false,
             };
             API.post("/users", newUser)
               .then(() => {
+                toast.success("User Register Successful!");
                 navigate("/account");
               })
               .catch((err) => {
@@ -105,8 +108,8 @@ const AuthPage = () => {
     const passwordLogin = form.passwordLogin.value;
     loginWithPassword(emailLogin, passwordLogin)
       .then((res) => {
-        const usr = res.user;
-        setUser(usr);
+        const user = res.user;
+        setUser(user);
         toast.success("You are Logged in!");
         navigate("/account");
       })
@@ -121,10 +124,27 @@ const AuthPage = () => {
   const handleGoogleLogin = () => {
     loginWithPopUp(googleProvider)
       .then((res) => {
-        const usr = res.user;
-        setUser(usr);
-        toast.success("You are Logged in!");
-        navigate("/account");
+        const user = res.user;
+        setUser(user);
+        const newUser = {
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoUrl,
+          uid: user.uid,
+          userRole: "customer",
+          requestForSeller: "N/A",
+          customer: true,
+          isSeller: false,
+        };
+        API.post("/users", newUser)
+          .then(() => {
+            toast.success("You are Logged in!");
+            navigate("/account");
+          })
+          .catch((err) => {
+            console.error("Error Creating Item:", err.message);
+            toast.error("Failed to Add User!");
+          });
       })
       .catch((err) => {
         console.log(err.message);

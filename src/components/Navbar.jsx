@@ -13,6 +13,7 @@ import StateContext from "../context/StateContext";
 import AuthContext from "../context/AuthContext";
 import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
+import API from "../api/API";
 
 const Navbar = () => {
   const { user, setUser, loginWithPopUp, logoutUser } = useContext(AuthContext);
@@ -34,9 +35,26 @@ const Navbar = () => {
   const handleGoogleLogin = () => {
     loginWithPopUp(googleProvider)
       .then((res) => {
-        const usr = res.user;
-        setUser(usr);
-        toast.success("You are Logged in!");
+        const user = res.user;
+        setUser(user);
+        const newUser = {
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoUrl,
+          uid: user.uid,
+          userRole: "customer",
+          requestForSeller: "N/A",
+          customer: true,
+          isSeller: false,
+        };
+        API.post("/users", newUser)
+          .then(() => {
+            toast.success("You are Logged in!");
+          })
+          .catch((err) => {
+            console.error("Error Creating Item:", err.message);
+            toast.error("Failed to Add User!");
+          });
       })
       .catch((err) => {
         console.log(err.message);

@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
+  const [userData, setUserData] = useState({});
 
   const id = user?.uid;
   const [userProducts, setUserProducts] = useState([]);
@@ -23,15 +24,15 @@ const Profile = () => {
     getUserProducts();
   }, [id]);
 
-  const totalTaka = userProducts.reduce(
-    (acc, curr) => acc + curr.price * curr.stockStatus,
-    0
-  );
+  // const totalTaka = userProducts.reduce(
+  //   (acc, curr) => acc + curr.price * curr.stockStatus,
+  //   0
+  // );
 
-  const totalStock = userProducts.reduce(
-    (acc, curr) => acc + curr.stockStatus,
-    0
-  );
+  // const totalStock = userProducts.reduce(
+  //   (acc, curr) => acc + curr.stockStatus,
+  //   0
+  // );
 
   return (
     <div className="container mx-auto min-h-screen py-[72px] lg:flex mt-5 gap-6 px-6">
@@ -59,16 +60,31 @@ const Profile = () => {
               <p className="text-gray-500 dark:text-gray-300 mt-1">
                 {user.email}
               </p>
-              <p className="mt-3 text-gray-700 dark:text-gray-400">
-                I am a seller.
+              <p className="mt-3 text-black dark:text-white font-bold">About</p>
+              <p className="text-gray-700 dark:text-gray-400">
+                {"I am a customer."}
               </p>
-              <Link
-                to={"/add-product"}
-                className="mt-3 w-full max-w-xs  bg-black dark:bg-white text-white dark:text-black py-2 rounded-md font-medium hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2"
-              >
-                Add A Product
-              </Link>
-              <div className="mt-6 flex justify-center md:justify-start gap-8">
+              <div className="grid grid-cols-3 gap-3 mt-4">
+                <Link
+                  to={"/become-seller"}
+                  className="mt-3 w-full max-w-xs  bg-black dark:bg-white text-white dark:text-black py-2 rounded-md font-medium hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2"
+                >
+                  Become Seller
+                </Link>
+                <Link
+                  to={"/seller-dashboard"}
+                  className="mt-3 w-full max-w-xs  bg-black dark:bg-white text-white dark:text-black py-2 rounded-md font-medium hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2"
+                >
+                  Seller Dashboard
+                </Link>
+                <Link
+                  to={"/admin-panel"}
+                  className="mt-3 w-full max-w-xs  bg-black dark:bg-white text-white dark:text-black py-2 rounded-md font-medium hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2"
+                >
+                  Admin Dashboard
+                </Link>
+              </div>
+              {/* <div className="mt-6 flex justify-center md:justify-start gap-8">
                 <div>
                   <p className="text-lg font-bold dark:text-white text-center">
                     {userProducts.length}
@@ -103,7 +119,7 @@ const Profile = () => {
                     Stock
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
