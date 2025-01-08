@@ -68,17 +68,55 @@ Visit the live demo of ATHLETIX at [https://athletix-1.web.app](https://athletix
 
 ---
 
-## License
+## 🛠️ How to Run the Project Locally
 
-This project is distributed under the MIT License. See LICENSE for more information.
+To run this project on your local machine, follow these steps:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/nayeem-webdev/athletix-client.git
+   cd athletix-client
+   ```
+
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the App:**
+   Open your browser and navigate to `http://localhost:3000` to view the app.
+
+5. **Build for Production:**
+   To create an optimized build, run:
+   ```bash
+   npm run build
+   ```
+
+6. **Preview Production Build:**
+   After building, you can preview the app with:
+   ```bash
+   npm run preview
+   ```
 
 ---
 
-## Contact
+## 📄 License
 
-- **Md Nayeem Uddin**
-  - [LinkedIn](https://www.linkedin.com/in/nayeem-webdev)
-  - Email: nayeem.webdev@gmail.com
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 📩 Contact
+
+Have questions or feedback? Feel free to reach out:
+- **Developer:** Nayeem-webdev
+- **Email:** [nayeem.webdev@gmail.com](mailto:nayeem.webdev@gmail.com)
+- **LinkedIn:** [LinkedIn](https://www.linkedin.com/in/nayeem-webdev)
 
 ---
 
