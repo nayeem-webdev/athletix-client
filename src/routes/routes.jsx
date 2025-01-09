@@ -125,9 +125,13 @@ const routes = createBrowserRouter([
         path: "products",
         element: (
           <AdminRoutes>
-            <PlaceHolder title={"products"} />
+            <AllSportsEquipment />
           </AdminRoutes>
         ),
+        loader: () =>
+          fetch(
+            "https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-Products"
+          ).then((res) => res.json()),
       },
       {
         path: "sales",
