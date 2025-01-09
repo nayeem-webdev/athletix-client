@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
   const id = user?.uid;
   const [userProducts, setUserProducts] = useState([]);
@@ -78,7 +78,7 @@ const Profile = () => {
                   Seller Dashboard
                 </Link>
                 <Link
-                  to={"/admin-panel"}
+                  to={"/admin-dashboard"}
                   className="mt-3 w-full max-w-xs  bg-black dark:bg-white text-white dark:text-black py-2 rounded-md font-medium hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2"
                 >
                   Admin Dashboard

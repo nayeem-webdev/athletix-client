@@ -1,25 +1,26 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import AuthPage from "../pages/AuthPage";
 import ErrorPage from "../pages/ErrorPage";
-import FailedFetch from "../pages/FailedFetch";
 import Profile from "../pages/Profile";
 import Shop from "../pages/Shop";
 import AllSportsEquipment from "../pages/AllSportsEquipment";
 import ProductForm from "../pages/ProductForm";
 import ProductPage from "../pages/ProductPage";
-// import Store from "../components/Store";
 import PrivateRoutes from "./PrivateRoutes";
-// import API from "../api/API";
 import About from "../pages/About";
 import ContactUs from "../pages/ContactUs";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AdminRoutes from "./AdminRoutes";
+import Dashboard from "../pages/dashboard-pages/Dashboard";
+import PlaceHolder from "../components/dashboard-components/PlaceHolder";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <FailedFetch />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -37,33 +38,13 @@ const routes = createBrowserRouter([
         path: "/shop",
         element: <Shop />,
       },
-      // children: [
-      //   {
-      //     index: true,
-      //     element: <Navigate to={"all-equipment"} />,
-      //   },
-      //   {
-      //     path: "/shop/:id",
-      //     element: <Store />,
-      //     loader: async ({ params }) => {
-      //       try {
-      //         const res = await API.get(
-      //           `/all-products/category/${params.id}`
-      //         );
-      //         return res.data;
-      //       } catch (err) {
-      //         console.error("Error fetching all products:", err);
-      //       }
-      //     },
-      //   },
-      // ],
       {
         path: "/shop/product/:id",
         element: <ProductPage />,
         loader: ({ params }) =>
           fetch(
             `https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-products/${params.id}`
-          ),
+          ).then((res) => res.json()),
       },
       {
         path: "/all-sports-equipment",
@@ -71,7 +52,7 @@ const routes = createBrowserRouter([
         loader: () =>
           fetch(
             "https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-Products"
-          ),
+          ).then((res) => res.json()),
       },
       {
         path: "/login",
@@ -111,11 +92,66 @@ const routes = createBrowserRouter([
         loader: ({ params }) =>
           fetch(
             `https://b10-a10-md-nayeem-uddin-server-side.vercel.app/all-products/${params.id}`
-          ),
+          ).then((res) => res.json()),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/admin",
+        element: <Navigate to="/admin/dashboard" replace />,
       },
       {
-        path: "*",
-        element: <ErrorPage />,
+        path: "dashboard",
+        element: (
+          <AdminRoutes>
+            <Dashboard />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoutes>
+            <PlaceHolder title={"users"} />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "products",
+        element: (
+          <AdminRoutes>
+            <PlaceHolder title={"products"} />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "sales",
+        element: (
+          <AdminRoutes>
+            <PlaceHolder title={"sales"} />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "reports",
+        element: (
+          <AdminRoutes>
+            <PlaceHolder title={"reports"} />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "reviews",
+        element: (
+          <AdminRoutes>
+            <PlaceHolder title={"reviews"} />
+          </AdminRoutes>
+        ),
       },
     ],
   },
