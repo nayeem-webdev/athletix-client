@@ -16,13 +16,13 @@ const DashboardLayout = () => {
       <DashboardNavbar />
       <div className="flex h-screen text-black dark:text-white py-[72px]">
         {/* Sidebar */}
-        <nav className="w-64 flex-shrink-0 p-4 bg-black/10 dark:bg-white/20 h-[calc(100vh-72px)]">
-          <ul className="space-y-4">
+        <nav className="w-64 flex-shrink-0  bg-black/5 dark:bg-white/20 h-[calc(100vh-72px)]">
+          <ul className="">
             <li>
               <NavLink
                 to="/admin/dashboard"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -34,7 +34,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/admin/users"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -46,7 +46,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/admin/products"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -58,7 +58,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/admin/sales"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -70,7 +70,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/admin/reports"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -82,7 +82,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/admin/reviews"
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md hover:bg-primary/80 dark:hover:bg-primary/80 ${
+                  `flex items-center gap-2 px-4 py-2 hover:bg-primary/80 dark:hover:bg-primary/80 ${
                     isActive ? "bg-primary text-white" : ""
                   }`
                 }
@@ -94,10 +94,10 @@ const DashboardLayout = () => {
           <div className="mt-8">
             <NavLink
               to="/"
-              className="flex items-center gap-2 px-4 py-2 rounded-md bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black
+              className="flex items-center gap-2 px-4 py-2 bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black
                hover:dark:bg-white/90 w-full justify-center"
             >
-              <FaHome /> Back to Home
+              <FaHome /> Back to Home Page
             </NavLink>
           </div>
         </nav>

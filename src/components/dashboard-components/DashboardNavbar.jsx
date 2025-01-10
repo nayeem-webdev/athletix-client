@@ -26,10 +26,10 @@ const DashboardNavbar = () => {
 
   return (
     <nav
-      className={`fixed flex justify-between top-0 w-full z-40 transition duration-300 dark:bg-black/80 dark:backdrop-blur-sm  px-4 lg:px-8 py-3  items-center ${
+      className={`fixed flex justify-between top-0 w-full z-40 transition duration-300  dark:backdrop-blur-sm  px-4 lg:px-8 py-3  items-center ${
         isScrolled
           ? "backdrop-blur-md bg-white/70 dark:bg-black/80 shadow-lg"
-          : "bg-transparent"
+          : "bg-black/5 dark:bg-white/20"
       }`}
     >
       <Link
