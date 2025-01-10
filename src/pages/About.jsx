@@ -9,7 +9,7 @@ const About = () => {
         <title>ATHLETIX | About</title>
       </Helmet>
       <div
-        className="relative w-full h-screen bg-cover bg-bottom mb-12 mt-[72px]"
+        className="relative w-full h-screen bg-cover bg-bottom mb-12 mt-[64px]"
         style={{
           backgroundImage:
             "url(https://i.ibb.co.com/GVNr8LW/pexels-photo-2294363.jpg)",

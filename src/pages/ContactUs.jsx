@@ -51,7 +51,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="container mx-auto px-5 md:px-10 mb-20     my-10 p-6 mt-[72px]">
+    <div className="container mx-auto px-5 md:px-10 mb-20     my-10 p-6 mt-[64px]">
       <Helmet>
         <title>ATHLETIX | Contact</title>
       </Helmet>

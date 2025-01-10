@@ -35,7 +35,7 @@ const Profile = () => {
   // );
 
   return (
-    <div className="container mx-auto min-h-screen py-[72px] lg:flex mt-5 gap-6 px-6">
+    <div className="container mx-auto min-h-screen py-[64px] lg:flex mt-5 gap-6 px-6">
       <Helmet>
         <title>ATHLETIX | {user?.displayName || "Guest"}</title>
       </Helmet>

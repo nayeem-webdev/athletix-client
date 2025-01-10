@@ -161,7 +161,7 @@ const AuthPage = () => {
     return <Navigate to={"/account"} />;
   } else {
     return (
-      <div className="min-h-screen flex  items-center justify-center px-4 transition py-[72px]">
+      <div className="min-h-screen flex  items-center justify-center px-4 transition py-[64px]">
         <Helmet>
           <title>ATHLETIX | Login or Register</title>
         </Helmet>

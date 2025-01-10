@@ -83,10 +83,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-40 transition duration-300 dark:bg-black/80 dark:backdrop-blur-sm ${
+      className={`fixed top-0 w-full z-40 transition duration-300  ${
         isScrolled
           ? "backdrop-blur-md bg-white/70 dark:bg-black/80 shadow-lg"
-          : "bg-transparent"
+          : "dark:bg-black/80 dark:backdrop-blur-sm"
       }`}
     >
       {/* Tooltip Dropdown for User */}
@@ -194,7 +194,7 @@ const Navbar = () => {
           </div>
           <Link
             to={"/"}
-            className="logo-shadow text-center text-2xl lg:text-5xl font-bold"
+            className="logo-shadow text-center text-4xl font-bold"
           >
             <h1>ATHLETIX</h1>
           </Link>

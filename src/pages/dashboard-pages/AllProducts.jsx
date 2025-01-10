@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 
-const AllSportsEquipment = () => {
+const AllProducts = () => {
   const allData = useLoaderData();
   const [sortedData, setSortedData] = useState([...allData]);
   const [isAscending, setIsAscending] = useState(true);
@@ -89,4 +89,4 @@ const AllSportsEquipment = () => {
   );
 };
 
-export default AllSportsEquipment;
+export default AllProducts;

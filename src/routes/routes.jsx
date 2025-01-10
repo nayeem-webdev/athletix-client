@@ -5,7 +5,7 @@ import AuthPage from "../pages/AuthPage";
 import ErrorPage from "../pages/ErrorPage";
 import Profile from "../pages/Profile";
 import Shop from "../pages/Shop";
-import AllSportsEquipment from "../pages/AllSportsEquipment";
+import AllSportsEquipment from "../pages/dashboard-pages/AllProducts";
 import ProductForm from "../pages/ProductForm";
 import ProductPage from "../pages/ProductPage";
 import PrivateRoutes from "./PrivateRoutes";

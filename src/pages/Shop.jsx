@@ -27,7 +27,7 @@ const Shop = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-5 md:px-10 py-[72px]">
+    <div className="container mx-auto px-5 md:px-10 py-[64px]">
       <Helmet>
         <title>ATHLETIX | Shop</title>
       </Helmet>

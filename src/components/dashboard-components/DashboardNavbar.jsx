@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import StateContext from "../../context/StateContext";
-import { FaBell, FaMoon, FaSun } from "react-icons/fa";
+import { FaBars, FaBell, FaMoon, FaSun, FaTimes } from "react-icons/fa";
+import PropTypes from "prop-types";
 
-const DashboardNavbar = () => {
+const DashboardNavbar = ({ toggleSidebar, isOpen }) => {
   const { toggleDarkMode, darkMode } = useContext(StateContext);
 
   // Track scrolling
@@ -16,7 +17,8 @@ const DashboardNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [notifications, setNotifications] = useState(null);
+  // const [notifications, setNotifications] = useState(null);
+  const notifications = 1;
 
   const user = {
     name: "John Doe",
@@ -26,20 +28,30 @@ const DashboardNavbar = () => {
 
   return (
     <nav
-      className={`fixed flex justify-between top-0 w-full z-40 transition duration-300  dark:backdrop-blur-sm  px-4 lg:px-8 py-3  items-center ${
-        isScrolled
-          ? "backdrop-blur-md bg-white/70 dark:bg-black/80 shadow-lg"
-          : "bg-black/5 dark:bg-white/20"
-      }`}
+      className={`fixed flex justify-between top-0 w-full z-40 transition duration-300  dark:backdrop-blur-sm  px-4 lg:px-8 py-3  items-center
+         ${
+           isScrolled
+             ? "backdrop-blur-md bg-white/70 dark:bg-black/80 shadow-lg"
+             : "bg-black/5 dark:bg-white/20"
+         }
+         `}
     >
-      <Link
-        to={"/"}
-        className="logo-shadow text-center text-2xl lg:text-5xl font-bold text-black dark:text-white"
-      >
-        <h1>ATHLETIX</h1>
-      </Link>
+      <div className="flex items-center gap-3 text-black dark:text-white lg:w-1/3">
+        <button
+          className="lg:hidden text-black dark:text-white text-2xl"
+          onClick={toggleSidebar}
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+        <Link
+          to={"/"}
+          className="logo-shadow text-center text-4xl font-bold text-black dark:text-white"
+        >
+          <h1>ATHLETIX</h1>
+        </Link>
+      </div>
 
-      <div className="flex items-center gap-3">
+      <div className="hidden sm:flex items-center gap-3">
         {/* User Details */}
         <div className="flex items-center gap-2 cursor-pointer border-r-2 pr-4 border-black">
           <div className="text-sm">
@@ -80,6 +92,10 @@ const DashboardNavbar = () => {
       </div>
     </nav>
   );
+};
+DashboardNavbar.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default DashboardNavbar;
