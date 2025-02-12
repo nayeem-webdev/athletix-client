@@ -1,7 +1,29 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import API from "../api/Api";
+import { useContext } from "react";
+import AuthContext from "./../context/AuthContext";
+import { toast } from "react-toastify";
 
 const ProductStoreCard = ({ product }) => {
+  const { user } = useContext(AuthContext);
+  const addToCart = (id) => {
+    if (!user?.uid) {
+      console.error("No user logged in");
+      return;
+    }
+    const cartItem = {
+      product: { productID: id, qty: 1 },
+      uid: user.uid,
+    };
+    API.post("/cart", cartItem)
+      .then(() => {
+        toast.success("Item added Successfully!");
+      })
+      .catch((err) => {
+        console.error("Error adding to cart:", err.message);
+      });
+  };
   return (
     <div className="mb-2">
       <div className="aspect-square w-full self-start bg-white rounded-sm">
@@ -22,15 +44,19 @@ const ProductStoreCard = ({ product }) => {
           {product.category.toUpperCase().replace("-", " ")}
         </p>
 
-        {/* <button className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
-          ADD TO CART - ${product.price}
-        </button> */}
         <Link
           to={`/shop/product/${product._id}`}
           className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
         >
           VIEW DETAILS
         </Link>
+
+        <button
+          onClick={() => addToCart(product._id)}
+          className="mt-3 w-full  bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
+        >
+          ADD TO CART - ${product.price}
+        </button>
       </div>
     </div>
   );
