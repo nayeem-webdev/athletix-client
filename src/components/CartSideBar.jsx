@@ -76,7 +76,7 @@ function CartSidebar({ isOpen, onClose }) {
                   ${item.price.toFixed(2)}
                 </p>
               </div>
-              <div className="flex items-center border-2 border-black dark:border-white">
+              <div className="flex items-center border border-black dark:border-white">
                 <span className="px-3 w-10 flex items-center justify-center">
                   {item.qty}
                 </span>

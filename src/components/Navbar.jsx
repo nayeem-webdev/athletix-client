@@ -148,7 +148,7 @@ const Navbar = () => {
 
       <CartSidebar isOpen={isOpen} onClose={toggleCart} />
 
-      <div className="flex px-4 lg:px-8 py-3 justify-between items-center">
+      <div className="container mx-auto flex px-4 lg:px-8 py-3 justify-between items-center">
         {/* Desktop Navigation */}
         <div className="hidden lg:flex space-x-6 w-1/3">
           {navLinks.map((link) => (
