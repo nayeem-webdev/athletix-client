@@ -1,11 +1,35 @@
 import { Rate } from "antd";
+import { useContext } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import API from "../api/Api";
+import { toast } from "react-toastify";
 
 const ProductPage = () => {
   const product = useLoaderData();
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const addToCart = (id) => {
+    if (!user?.uid) {
+      navigate("/login");
+      return;
+    }
+    const cartItem = {
+      product: { productID: id, qty: 1 },
+      uid: user.uid,
+    };
 
-  // Ensure product is defined before rendering
+    API.post("/cart", cartItem)
+      .then(() => {
+        toast.success("Item added successfully!");
+      })
+      .catch((err) => {
+        toast.error("Failed to add item to cart. Please try again.");
+        console.error("Error adding to cart:", err.message);
+      });
+  };
+
   if (!product) {
     return <div className="container mx-auto py-[140px] p-8">Loading...</div>;
   }
@@ -24,7 +48,9 @@ const ProductPage = () => {
       </div>
       <div className="w-full lg:w-1/2 flex flex-col items-start">
         <p className="text-sm mb-5 text-black/80 dark:text-white/80">
-          {product.category ? product.category.toUpperCase().replace("-", " ") : "Unknown Category"}
+          {product.category
+            ? product.category.toUpperCase().replace("-", " ")
+            : "Unknown Category"}
         </p>
         <h2 className="font-quick text-3xl mb-6 dark:text-white">
           {product.product_title || "No Title Available"}
@@ -57,9 +83,12 @@ const ProductPage = () => {
             : "Out of Stock"}
         </p>
         <p className="py-5">
-          Seller: {" "}
+          Seller:{" "}
           {product.uid ? (
-            <Link className="text-primary hover:underline" to={`/profile/${product.uid}`}>
+            <Link
+              className="text-primary hover:underline"
+              to={`/profile/${product.uid}`}
+            >
               {product.displayName || "Unknown Seller"}
             </Link>
           ) : (
@@ -81,9 +110,12 @@ const ProductPage = () => {
             <li className="list-disc ml-6">No specifications available</li>
           )}
         </ul>
-        {/* <button className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold">
+        <button
+          onClick={() => addToCart(product?._id)}
+          className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
+        >
           ADD TO CART
-        </button> */}
+        </button>
       </div>
     </div>
   );
