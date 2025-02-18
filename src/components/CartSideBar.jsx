@@ -13,12 +13,10 @@ function CartSidebar({ isOpen, onClose }) {
     // { id: 8, name: "Product 8", price: 89.99, qty: 1 },
   ]);
 
-  // Calculate price
   const totalPrice = cartItems
     .reduce((sum, item) => sum + item.price * item.qty, 0)
     .toFixed(2);
 
-  // Update quantity
   const updateQty = (id, amount) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -27,7 +25,6 @@ function CartSidebar({ isOpen, onClose }) {
     );
   };
 
-  // Close on outside click
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (isOpen && !e.target.closest(".cart-sidebar")) {
@@ -41,18 +38,15 @@ function CartSidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {/* Overlay (click to close) */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 dark:bg-white/20 z-40"></div>
       )}
 
-      {/* Cart Sidebar */}
       <div
         className={`cart-sidebar fixed top-0 right-0 h-full w-80 bg-white dark:bg-black dark:text-white shadow-lg z-50 transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">Shopping Cart</h2>
           <button
@@ -63,7 +57,6 @@ function CartSidebar({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Cart Items */}
         <div className="p-4 space-y-4">
           {cartItems.map((item) => (
             <div
@@ -98,21 +91,19 @@ function CartSidebar({ isOpen, onClose }) {
             </div>
           ))}
 
-          {/* Total */}
           <div className="flex justify-between font-semibold text-lg mt-4">
             <span>Total:</span>
             <span>${totalPrice}</span>
           </div>
 
-          {/* Buttons */}
-          <div className="flex gap-3">
+          {/* <div className="flex gap-3">
             <button className="w-full mt-4 bg-black dark:bg-white text-white dark:text-black py-2 hover:bg-blue-700 transition">
               View Cart
             </button>
             <button className="w-full mt-4 bg-primary py-2 hover:bg-blue-700 transition">
               Checkout
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
