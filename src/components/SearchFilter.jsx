@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const SearchFilter = ({ data, setFilteredData }) => {
+const SearchFilter = ({ data = [], setFilteredData }) => {
   const [searchText, setSearchText] = useState("");
   const [priceRange, setPriceRange] = useState(1000);
   const [sortOrder, setSortOrder] = useState("");
   const [range, setRange] = useState(0);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const newMaxPrice = Math.max(...data.map((item) => item.price));
+    if (data.length > 0) {
+      const newMaxPrice = Math.max(...data.map((item) => item.price || 0));
       setPriceRange(newMaxPrice);
       setRange(newMaxPrice);
     }
@@ -17,13 +17,14 @@ const SearchFilter = ({ data, setFilteredData }) => {
 
   useEffect(() => {
     const filterData = () => {
-      let filteredData = data.filter(
-        (p) =>
-          p.product_title.toLowerCase().includes(searchText.toLowerCase()) &&
+      let filteredData = data.filter((p) => {
+        const title = p?.product_title ? p.product_title.toLowerCase() : "";
+        return (
+          title.includes((searchText || "").toLowerCase()) &&
           p.price <= priceRange
-      );
+        );
+      });
 
-      // Sorting
       if (sortOrder === "asc") {
         filteredData = filteredData.sort((a, b) => a.price - b.price);
       } else if (sortOrder === "desc") {

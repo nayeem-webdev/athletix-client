@@ -14,7 +14,7 @@ const HomeProducts = () => {
           Check our Latest Stock
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.slice(0, 10).map((product) => (
+          {products.slice(0, 8).map((product) => (
             <ProductStoreCard key={product._id} product={product} />
           ))}
         </div>
