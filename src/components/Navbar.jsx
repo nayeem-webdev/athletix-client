@@ -8,16 +8,21 @@ import {
   FaBars,
   FaTimes,
   FaGoogle,
+  FaShoppingCart,
 } from "react-icons/fa";
 import StateContext from "../context/StateContext";
 import AuthContext from "../context/AuthContext";
 import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
-import API from "../api/API";
+import API from "../api/Api";
+import CartSidebar from "./CartSideBar";
 
 const Navbar = () => {
   const { user, setUser, loginWithPopUp, logoutUser } = useContext(AuthContext);
   const { toggleDarkMode, darkMode } = useContext(StateContext);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleCart = () => setIsOpen(!isOpen);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -85,11 +90,11 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-40 transition duration-300  ${
         isScrolled
-          ? "backdrop-blur-md bg-white/70 dark:bg-black/80 shadow-lg"
-          : "dark:bg-black/80 dark:backdrop-blur-sm"
+          ? "bg-white dark:bg-black shadow-lg"
+          : "bg-transparent dark:bg-black/80"
       }`}
     >
-      {/* Tooltip Dropdown for User */}
+      {/* Tooltip */}
       <Tooltip
         anchorSelect="#navUser"
         clickable
@@ -140,6 +145,8 @@ const Navbar = () => {
           )}
         </nav>
       </Tooltip>
+
+      <CartSidebar isOpen={isOpen} onClose={toggleCart} />
 
       <div className="flex px-4 lg:px-8 py-3 justify-between items-center">
         {/* Desktop Navigation */}
@@ -192,25 +199,22 @@ const Navbar = () => {
               {isMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
-          <Link
-            to={"/"}
-            className="logo-shadow text-center text-4xl font-bold"
-          >
+          <Link to={"/"} className="logo-shadow text-center text-4xl font-bold">
             <h1>ATHLETIX</h1>
           </Link>
         </div>
 
         {/* User and E-commerce Icons */}
         <div className="flex items-center justify-end space-x-6 w-1/3">
+          <button onClick={toggleCart}>
+            <FaShoppingCart className="text-black dark:text-white hover:text-primary dark:hover:text-primary" />
+          </button>
           <button>
             <FaUser
               id="navUser"
               className="text-black dark:text-white hover:text-primary dark:hover:text-primary"
             />
           </button>
-          {/* <button>
-            <FaShoppingCart className="text-black dark:text-white hover:text-primary dark:hover:text-primary" />
-          </button> */}
           <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? (
               <FaSun className="text-black dark:text-white hover:text-primary dark:hover:text-primary" />
