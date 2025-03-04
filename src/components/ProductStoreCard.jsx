@@ -13,11 +13,11 @@ const ProductStoreCard = ({ product }) => {
 
   const addToCart = (id) => {
     if (!user?.uid) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     const cartItem = {
-      product: { productID: id, qty: 1 },
+      productID: id,
       uid: user.uid,
     };
 

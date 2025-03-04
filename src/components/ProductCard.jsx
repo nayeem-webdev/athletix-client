@@ -1,7 +1,32 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../api/Api";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const addToCart = (id) => {
+    if (!user?.uid) {
+      navigate("/login");
+      return;
+    }
+    const cartItem = {
+      productID: id,
+      uid: user.uid,
+    };
+
+    API.post("/cart", cartItem)
+      .then(() => {
+        toast.success("Item added successfully!");
+      })
+      .catch((err) => {
+        toast.error("Failed to add item to cart. Please try again.");
+        console.error("Error adding to cart:", err.message);
+      });
+  };
   return (
     <div className="rounded-lg flex flex-col mb-4 bg-white dark:bg-white/10 p-4 shadow-md">
       <div className="flex">
@@ -26,9 +51,12 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       <div className="flex space-x-3 mt-3 text-center">
-        {/* <button className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-lg hover:bg-black/70 dark:hover:bg-white/70 transition font-bold">
+        <button
+          onClick={() => addToCart(product._id)}
+          className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-lg hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
+        >
           ADD TO CART - ${product.price}
-        </button> */}
+        </button>
         <Link
           to={`/shop/product/${product._id}`}
           className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-lg hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
