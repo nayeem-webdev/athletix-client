@@ -50,3 +50,26 @@ h6 {
   border: 2px, solid, white;
   cursor: pointer;
 }
+
+.custom-input {
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* Hide number input arrows */
+.custom-input::-webkit-inner-spin-button,
+.custom-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-input {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Remove focus/active ring */
+.custom-input:focus,
+.custom-input:active {
+  outline: none;
+  box-shadow: none;
+}

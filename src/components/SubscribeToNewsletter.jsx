@@ -32,7 +32,7 @@ const SubscribeToNewsletter = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <button
-            className="bg-white text-black p-3 rounded-lg flex items-center space-x-2 hover:bg-gray-200 transition-colors"
+            className="bg-white text-black p-3 rounded-md flex items-center space-x-2 hover:bg-gray-200 transition-colors"
             onClick={handleSubscribe}
           >
             <span>Subscribe</span>

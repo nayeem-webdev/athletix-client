@@ -1,5 +1,5 @@
 import { Rate } from "antd";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
@@ -10,6 +10,7 @@ const ProductPage = () => {
   const product = useLoaderData();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [itemQty, setItemQty] = useState(1);
   const addToCart = (id) => {
     if (!user?.uid) {
       navigate("/login");
@@ -82,7 +83,74 @@ const ProductPage = () => {
             ? `${product.stockStatus} Items in Stock`
             : "Out of Stock"}
         </p>
-        <p className="py-5">
+        <div className="flex items-center gap-3">
+          {/* Counter */}
+          <div className="flex items-center border border-black dark:border-white overflow-hidden rounded-md">
+            <input
+              type="number"
+              min={1}
+              max={product.stockStatus}
+              className="custom-input text-center w-16 h-[48px] border-none outline-none bg-transparent dark:text-white"
+              value={itemQty}
+              onChange={(e) => {
+                const value = Math.max(
+                  1,
+                  Math.min(product.stockStatus, Number(e.target.value))
+                );
+                setItemQty(value);
+              }}
+            />
+            <div className="flex flex-col">
+              <button
+                onClick={() => setItemQty(Math.max(1, itemQty - 1))}
+                disabled={itemQty === 1}
+                className="h-[24px] w-8 border-l border-b border-black dark:border-white hover:bg-black/10 dark:hover:bg-white/20 dark:text-white/70 flex items-center justify-center"
+              >
+                -
+              </button>
+              <button
+                onClick={() =>
+                  setItemQty(Math.min(product.stockStatus, itemQty + 1))
+                }
+                disabled={itemQty === product.stockStatus}
+                className="h-[24px] w-8 border-l border-black dark:border-white hover:bg-black/10 dark:hover:bg-white/20 dark:text-white/70 flex items-center justify-center"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={() => addToCart(product?._id)}
+            className="px-10 border bg-black dark:bg-white text-white dark:text-black py-3 rounded-md hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        {/* Button */}
+        <button
+          onClick={() => addToCart(product?._id)}
+          className="mt-3 mb-5 min-w-[295px] px-10 border bg-black dark:bg-white text-white dark:text-black py-3 rounded-md hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
+        >
+          BUY NOW
+        </button>
+        <p className="text-sm text-black/80 dark:text-white/80 leading-loose mb-5">
+          {product.description || "No description available."}
+        </p>
+        <h4 className="text-md dark:text-white/80">Specification:</h4>
+        <ul className="text-sm text-black/80 dark:text-white/80 leading-loose mb-5">
+          {product.customization && product.customization.length > 0 ? (
+            product.customization.map((spec, index) => (
+              <li className="list-disc ml-4" key={index}>
+                {spec}
+              </li>
+            ))
+          ) : (
+            <li className="list-disc ml-4">No specifications available</li>
+          )}
+        </ul>
+        <p>
           Seller:{" "}
           {product.uid ? (
             <Link
@@ -95,27 +163,6 @@ const ProductPage = () => {
             "No Seller Information"
           )}
         </p>
-        <p className="text-sm text-black/80 dark:text-white/80 leading-loose mb-5">
-          {product.description || "No description available."}
-        </p>
-        <h4 className="text-md dark:text-white/80">Specification:</h4>
-        <ul className="text-sm text-black/80 dark:text-white/80 leading-loose mb-8">
-          {product.customization && product.customization.length > 0 ? (
-            product.customization.map((spec, index) => (
-              <li className="list-disc ml-6" key={index}>
-                {spec}
-              </li>
-            ))
-          ) : (
-            <li className="list-disc ml-6">No specifications available</li>
-          )}
-        </ul>
-        <button
-          onClick={() => addToCart(product?._id)}
-          className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold"
-        >
-          ADD TO CART
-        </button>
       </div>
     </div>
   );

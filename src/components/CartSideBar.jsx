@@ -96,14 +96,14 @@ function CartSidebar({ isOpen, onClose }) {
             <span>${totalPrice}</span>
           </div>
 
-          {/* <div className="flex gap-3">
+          <div className="flex gap-3">
             <button className="w-full mt-4 bg-black dark:bg-white text-white dark:text-black py-2 hover:bg-blue-700 transition">
               View Cart
             </button>
             <button className="w-full mt-4 bg-primary py-2 hover:bg-blue-700 transition">
               Checkout
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

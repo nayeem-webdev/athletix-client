@@ -53,13 +53,13 @@ const ProductCard = ({ product }) => {
       <div className="flex space-x-3 mt-3 text-center">
         <button
           onClick={() => addToCart(product._id)}
-          className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-lg hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
+          className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-md hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
         >
           ADD TO CART - ${product.price}
         </button>
         <Link
           to={`/shop/product/${product._id}`}
-          className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-lg hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
+          className="flex-grow bg-black dark:bg-white text-white dark:text-black py-2 rounded-md hover:bg-black/70 dark:hover:bg-white/70 transition font-bold"
         >
           VIEW
         </Link>
