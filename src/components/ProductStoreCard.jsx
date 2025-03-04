@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import API from "../api/Api";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
@@ -32,8 +32,11 @@ const ProductStoreCard = ({ product }) => {
   };
 
   return (
-    <div className="mb-2">
-      <div className="aspect-square w-full self-start bg-white rounded-sm">
+    <div
+      className="mb-2 cursor-pointer p-2 rounded-md group"
+      onClick={() => navigate(`/shop/product/${product?._id}`)}
+    >
+      <div className="aspect-square w-full bg-white rounded-sm">
         <img
           src={product?.product_image}
           alt={`Image of ${product?.product_title}`}
@@ -43,7 +46,7 @@ const ProductStoreCard = ({ product }) => {
       <div className="w-full flex flex-col items-start mt-4">
         <h2
           title={product?.product_title}
-          className="font-quick text-xl mb-3 dark:text-white h-14 overflow-hidden"
+          className="font-quick text-xl mb-3 dark:text-white h-14 overflow-hidden transition-colors group-hover:text-primary"
         >
           {product?.product_title}
         </h2>
@@ -52,15 +55,11 @@ const ProductStoreCard = ({ product }) => {
             ? product.category.toUpperCase().replace("-", " ")
             : ""}
         </p>
-        <Link
-          to={`/shop/product/${product?._id}`}
-          className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold cursor-pointer"
-        >
-          VIEW DETAILS
-        </Link>
-
         <button
-          onClick={() => addToCart(product?._id)}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent navigating when clicking "Add to Cart"
+            addToCart(product?._id);
+          }}
           className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black py-1 rounded-full hover:bg-black/70 dark:hover:bg-white/70 transition flex justify-center items-center gap-2 font-bold cursor-pointer"
         >
           ADD TO CART - ${product?.price}

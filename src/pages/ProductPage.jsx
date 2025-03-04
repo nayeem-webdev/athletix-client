@@ -150,7 +150,7 @@ const ProductPage = () => {
             <li className="list-disc ml-4">No specifications available</li>
           )}
         </ul>
-        <p>
+        <p className="dark:text-white">
           Seller:{" "}
           {product.uid ? (
             <Link
