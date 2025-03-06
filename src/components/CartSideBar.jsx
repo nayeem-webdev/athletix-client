@@ -14,13 +14,13 @@ function CartSidebar({ isOpen, onClose }) {
     data: cartItems = [],
     refetch,
   } = useQuery({
-    queryKey: ["cartItems", user?.uid], // ✅ Unique query key
+    queryKey: ["cartItems", user?.uid],
     queryFn: async () => {
-      if (!user?.uid) return []; // ✅ Prevent API call if user is not available
+      if (!user?.uid) return [];
       const res = await API.get(`/cart_items/${user.uid}`);
-      return res.data || []; // ✅ Ensure it always returns an array
+      return res.data || [];
     },
-    enabled: !!user?.uid, // ✅ Only run query if user is defined
+    enabled: !!user?.uid,
   });
 
   const totalPrice = (
@@ -43,15 +43,18 @@ function CartSidebar({ isOpen, onClose }) {
 
   return (
     <>
+      {/* Overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 dark:bg-white/20 z-40"></div>
       )}
 
+      {/* Sidebar */}
       <div
-        className={`cart-sidebar fixed top-0 right-0 h-full w-80 bg-white dark:bg-black dark:text-white shadow-lg z-50 transition-transform duration-300 ${
+        className={`cart-sidebar fixed top-0 right-0 h-full w-80 sm:w-96 bg-white dark:bg-black dark:text-white shadow-lg z-50 transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        } flex flex-col`}
       >
+        {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">Shopping Cart</h2>
           <button
@@ -62,7 +65,8 @@ function CartSidebar({ isOpen, onClose }) {
           </button>
         </div>
 
-        <div className="p-4 space-y-4">
+        {/* Scrollable Cart Items */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
               <CartItem key={item.id} item={item} refetch={refetch} />
@@ -70,17 +74,20 @@ function CartSidebar({ isOpen, onClose }) {
           ) : (
             <p>Your cart is empty.</p>
           )}
+        </div>
 
-          <div className="flex justify-between font-semibold text-lg mt-4">
+        {/* Fixed Bottom Section */}
+        <div className="p-4 border-t bg-white dark:bg-black">
+          <div className="flex justify-between font-semibold text-lg">
             <span>Total:</span>
             <span>${totalPrice}</span>
           </div>
 
-          <div className="flex gap-3">
-            <button className="w-full mt-4 bg-black dark:bg-white text-white dark:text-black py-2 hover:bg-blue-700 transition">
+          <div className="flex gap-3 mt-4">
+            <button className="w-full bg-black dark:bg-white text-white dark:text-black py-2 hover:bg-gray-800 transition">
               View Cart
             </button>
-            <button className="w-full mt-4 bg-primary py-2 hover:bg-blue-700 transition">
+            <button className="w-full bg-primary py-2 hover:bg-blue-700 transition">
               Checkout
             </button>
           </div>
