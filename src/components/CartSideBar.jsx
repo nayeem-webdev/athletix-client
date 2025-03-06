@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import CartItem from "./CartItem";
+import { useQuery } from "@tanstack/react-query";
+import API from "./../api/Api";
+import AuthContext from "../context/AuthContext";
 
 function CartSidebar({ isOpen, onClose }) {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Will be Fetched From API", price: 19.99, qty: 1 },
-    { id: 2, name: "Work in progress", price: 29.99, qty: 1 },
-    { id: 3, name: "Product 3", price: 39.99, qty: 1 },
-    { id: 4, name: "Product 4", price: 49.99, qty: 1 },
-    // { id: 5, name: "Product 5", price: 59.99, qty: 1 },
-    // { id: 6, name: "Product 6", price: 69.99, qty: 1 },
-    // { id: 7, name: "Product 7", price: 79.99, qty: 1 },
-    // { id: 8, name: "Product 8", price: 89.99, qty: 1 },
-  ]);
+  const { user } = useContext(AuthContext);
 
-  const totalPrice = cartItems
-    .reduce((sum, item) => sum + item.price * item.qty, 0)
-    .toFixed(2);
+  const {
+    isLoading,
+    error,
+    data: cartItems = [],
+    refetch,
+  } = useQuery({
+    queryKey: ["cartItems", user?.uid], // ✅ Unique query key
+    queryFn: async () => {
+      if (!user?.uid) return []; // ✅ Prevent API call if user is not available
+      const res = await API.get(`/cart_items/${user.uid}`);
+      return res.data || []; // ✅ Ensure it always returns an array
+    },
+    enabled: !!user?.uid, // ✅ Only run query if user is defined
+  });
 
-  const updateQty = (id, amount) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, qty: Math.max(1, item.qty + amount) } : item
-      )
-    );
-  };
+  const totalPrice = (
+    cartItems?.reduce((sum, item) => sum + item.price * item.qty, 0) || 0
+  ).toFixed(2);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -35,6 +37,9 @@ function CartSidebar({ isOpen, onClose }) {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isOpen, onClose]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching cart items.</div>;
 
   return (
     <>
@@ -58,38 +63,13 @@ function CartSidebar({ isOpen, onClose }) {
         </div>
 
         <div className="p-4 space-y-4">
-          {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between border-b pb-2"
-            >
-              <div>
-                <h3 className="font-medium">{item.name}</h3>
-                <p className="text-sm text-black/80 dark:text-white/50">
-                  ${item.price.toFixed(2)}
-                </p>
-              </div>
-              <div className="flex items-center border border-black dark:border-white">
-                <span className="px-3 w-10 flex items-center justify-center">
-                  {item.qty}
-                </span>
-                <div className="flex flex-col  border-l border-black dark:border-white">
-                  <button
-                    onClick={() => updateQty(item.id, -1)}
-                    className="px-2 border-black dark:border-white hover:bg-black/10 dark:hover:bg-white/20"
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={() => updateQty(item.id, 1)}
-                    className="px-2 border-t border-black dark:border-white hover:bg-black/10 dark:hover:bg-white/20"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+          {cartItems.length > 0 ? (
+            cartItems.map((item) => (
+              <CartItem key={item.id} item={item} refetch={refetch} />
+            ))
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
 
           <div className="flex justify-between font-semibold text-lg mt-4">
             <span>Total:</span>
